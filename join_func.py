@@ -9,12 +9,15 @@ from config import MEMORY_AVAILABLE
 
 
 def skip_func(x, low_range, high_range):
-    """
+    '''
+    Help function to filter out desired filerows.
+
     Function to parse through csv file and select rows with indexes belonging to
     corresponding cluster. Header with index 0 cannot be skipped, to keep the dataframe's
     format. All rows with indexes out of the expected range return True value, which means they
     should be ommited while reading.
-    """
+    '''
+    
     if x == 0:
         return False
     elif x < low_range:
@@ -70,22 +73,41 @@ def get_cluster_size(file1, file2, memory_available):
 
 def join_function(file1, file2, col_name, join_type):
     """
-    ADD DESCRIPTION
-    """
+    Function to join two files.
 
+    Function joins two files on key given as col_name argument. Function relies on block nested loop join
+    algorithm using pandas to process data. Type of join is determined by join_type argument. Default type is inner join.
+
+    Parameters
+    ---------
+    file1 : str 
+        path to left side file.
+    file2 : str 
+        path to right side file.
+    col_name : str 
+        column name used to join two files
+    join_type : str 
+        type of join
+    
+    Output
+    ----------
+    joined files printed to standard output in csv format
+    
+    """
+    debug = False
     memory_available = MEMORY_AVAILABLE
     cluster_size, nclusters1, nclusters2, nrows1, nrows2 = get_cluster_size(
         file1, file2, memory_available
     )
-
-    print(
-        f"Left dataset was divided into {nclusters1} clusters with the size of {min(cluster_size,nrows1)} rows"
-    )
-    print(
-        f"Right dataset was divided into {nclusters2} clusters with the size of {min(cluster_size, nrows2)} rows"
-    )
-    print(f"{join_type} join was selected on column {col_name}")
-    print("Proceeding to joining files ...")
+    if debug:
+        print(
+            f"Left dataset was divided into {nclusters1} clusters with the size of {min(cluster_size,nrows1)} rows"
+        )
+        print(
+            f"Right dataset was divided into {nclusters2} clusters with the size of {min(cluster_size, nrows2)} rows"
+        )
+        print(f"{join_type} join was selected on column {col_name}")
+        print("Proceeding to joining files ...")
 
     # if nclusters2 is equal to 1, there is no need for 2nd, inner loop and reading csv over and over again,
     # it can be stored through the whole process, as it does not change
@@ -206,9 +228,13 @@ def main():
 
     join_function(args.file1, args.file2, args.col, join_type)
 
+if __name__ == '__main__':
+    main()
 
-main()
 
 # command usage example
 # python batch_small.py --file1 employees.csv --file2 departments.csv --col department_id
 # sample_df1 = pd.read_csv(f2, encoding="utf-8", nrows=100)
+# python3 join_func.py --file1 employees.csv --file2 departments.csv --col department_id
+
+# join employees.csv departments.csv department_id

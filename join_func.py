@@ -54,7 +54,7 @@ def get_cluster_size(file1, file2, memory_available):
     max_join_memory_per_row = memory_per_row1 + memory_per_row2
     memory_limit = 0.8 * memory_available  # Let's have some safety factor.
 
-    ## cluster_memory = 2*max_join_memory_per_row*cluster_size <= memory_limit
+    # cluster_memory = 2*max_join_memory_per_row*cluster_size <= memory_limit
     # Joined df cannot be bigger than sum of length of its components.
     # The size of join set with maximal memory per row equals $$ max_join_memory_per_row * cluster_size $$.
     # The size of left set equals $$ memory_per_row1 * cluster_size $$. The same with right set.
@@ -231,11 +231,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# command usage example
-# python batch_small.py --file1 employees.csv --file2 departments.csv --col department_id
-# sample_df1 = pd.read_csv(f2, encoding="utf-8", nrows=100)
-# python3 join_func.py --file1 employees.csv --file2 departments.csv --col department_id
-
-# join employees.csv departments.csv department_id

@@ -1,9 +1,16 @@
-# VirtusLab_task
+# VirtusLab task
 
-General description
+The task is to implement a program, which will read two csv files, join them using a specified column and then write the result to the standard output. Users are able to specify the join type. 
+Assumptions:
+1. Input files conform to the rfc4180
+2. Header is always present
+3. Rows may appear in any order
+4. Each input file can be much bigger than there is available memory on the machine
+
+My implementation is written with Python using Pandas package. Then it overrides the built-in shell *join* function with bash script to call the python program with specified arguments. 
 
 ## Usage
-Program is designed to be used on Ubuntu system with python installed. The goal was to execute program with a command:
+Program is designed to be used on linux system with python installed. The goal was to execute program with a command:
 ```bash
 join file_path file_path column_name join_type
 ```

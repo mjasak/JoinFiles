@@ -9,15 +9,15 @@ from config import MEMORY_AVAILABLE
 
 
 def skip_func(x, low_range, high_range):
-    '''
+    """
     Help function to filter out desired filerows.
 
     Function to parse through csv file and select rows with indexes belonging to
     corresponding cluster. Header with index 0 cannot be skipped, to keep the dataframe's
     format. All rows with indexes out of the expected range return True value, which means they
     should be ommited while reading.
-    '''
-    
+    """
+
     if x == 0:
         return False
     elif x < low_range:
@@ -80,19 +80,19 @@ def join_function(file1, file2, col_name, join_type):
 
     Parameters
     ---------
-    file1 : str 
+    file1 : str
         path to left side file.
-    file2 : str 
+    file2 : str
         path to right side file.
-    col_name : str 
+    col_name : str
         column name used to join two files
-    join_type : str 
+    join_type : str
         type of join
-    
+
     Output
     ----------
     joined files printed to standard output in csv format
-    
+
     """
     debug = False
     memory_available = MEMORY_AVAILABLE
@@ -228,7 +228,8 @@ def main():
 
     join_function(args.file1, args.file2, args.col, join_type)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
 
 

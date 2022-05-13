@@ -1,4 +1,4 @@
-# VirtusLab task
+# Joining Big Files with Pandas
 
 The task is to implement a program, which will read two csv files, join them using a specified column and then write the result to the standard output. Users are able to specify the join type. 
 Assumptions:
